@@ -9,9 +9,10 @@ import java.util.HashMap;
 
 public class Main {
     public static User user;
+    public static Message getMessage;
+    static ArrayList<Message> messages = new ArrayList<>();
 
     public static void main(String[] args) {
-
 
         Spark.get(
                 "/",
@@ -21,26 +22,21 @@ public class Main {
                         return new ModelAndView(m, "index.html");
                     } else {
                         m.put("name", user.name);
-                        return new ModelAndView(m, "/");
+                        return new ModelAndView(m, "messages.html");
                     }
-
-
                 }),
                 new MustacheTemplateEngine()
         );
         Spark.get(
                 "/messages",
-                ((request, response) -> {
+                (request, response) -> {
                     HashMap m = new HashMap();
-                    if (user == null) {
-                        return new ModelAndView(m, "messages.html");
-                    } else {
-                        m.put("name", user.name);
-                        return new ModelAndView(m, "/");
-                    }
-
-
-                }),
+//                    for (int i = 0 ; i < messages.size(); i++) {
+//                        Message getMessages = messages.get(i);
+//                    }
+                     m.put("messages", messages);
+                        return new ModelAndView(m, "/messages.html");
+                },
                 new MustacheTemplateEngine()
         );
         Spark.get(
@@ -64,15 +60,17 @@ public class Main {
                 ((request, response) -> {
                     String name = request.queryParams("loginName");
                     user = new User(name);
-                    response.redirect("/");
+                    response.redirect("/messages");
                     return "";
                 })
         );
         Spark.post(
                 "/create-message",
                 ((request, response) -> {
-                    ArrayList<String> namesLocal = new ArrayList<>();
-                    response.redirect("/");
+                    String theMessage = request.queryParams("message");
+                    getMessage = new Message(theMessage);
+                    messages.add(getMessage);
+                    response.redirect("/messages");
                     return "";
                 }));
 
