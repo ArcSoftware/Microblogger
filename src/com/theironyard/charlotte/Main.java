@@ -22,35 +22,9 @@ public class Main {
                         return new ModelAndView(m, "index.html");
                     } else {
                         m.put("name", user.name);
+                        m.put("messages", messages);
                         return new ModelAndView(m, "messages.html");
                     }
-                }),
-                new MustacheTemplateEngine()
-        );
-        Spark.get(
-                "/messages",
-                (request, response) -> {
-                    HashMap m = new HashMap();
-//                    for (int i = 0 ; i < messages.size(); i++) {
-//                        Message getMessages = messages.get(i);
-//                    }
-                     m.put("messages", messages);
-                        return new ModelAndView(m, "/messages.html");
-                },
-                new MustacheTemplateEngine()
-        );
-        Spark.get(
-                "/index",
-                ((request, response) -> {
-                    HashMap m = new HashMap();
-                    if (user == null) {
-                        return new ModelAndView(m, "index.html");
-                    } else {
-                        m.put("name", user.name);
-                        return new ModelAndView(m, "/");
-                    }
-
-
                 }),
                 new MustacheTemplateEngine()
         );
@@ -60,7 +34,7 @@ public class Main {
                 ((request, response) -> {
                     String name = request.queryParams("loginName");
                     user = new User(name);
-                    response.redirect("/messages");
+                    response.redirect("/");
                     return "";
                 })
         );
@@ -68,9 +42,9 @@ public class Main {
                 "/create-message",
                 ((request, response) -> {
                     String theMessage = request.queryParams("message");
-                    getMessage = new Message(theMessage);
+                    getMessage = new Message(theMessage, user);
                     messages.add(getMessage);
-                    response.redirect("/messages");
+                    response.redirect("/");
                     return "";
                 }));
 

@@ -1,6 +1,16 @@
 <!DOCTYPE html>
-</body>
-</html>
+<head>
+    <style>
+body {
+    background-color: linen;
+}
+
+h1 {
+    color: maroon;
+    margin-left: 40px;
+}
+</style>
+</head>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,17 +18,20 @@
 </head>
 <body>
 <form action="/create-message" method="post">
-    <input type="text" placeholder="Write a message here, human." name="message"/>
+    <input type="text" placeholder="Write a message here." name="message"/>
     <button type= "Post">Send message</button>
 </form>
-<form action="/logout" method="post">
-    <button type="submit">Logout</button>
-</form>
-<h1>Messages by {{name}}</h1>
+<h1>
+    <i style="font-size:48px;color:maroon;">Messages:</i>
+    by {{name}}...
+
+
+</h1>
 <h2>
     <ol>
     {{#messages}}
-        <li>{{ text }}</li>
+
+        <li>{{user.name}}: {{text}}</li>
     {{/messages}}
     </ol>
 </h2>

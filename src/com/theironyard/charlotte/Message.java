@@ -5,8 +5,10 @@ package com.theironyard.charlotte;
  */
 public class Message {
     String text;
+    User user;
 
-    public Message(String text) {
+    public Message(String text, User user) {
         this.text = text;
+        this.user = user;
     }
 }
