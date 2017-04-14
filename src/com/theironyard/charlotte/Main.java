@@ -10,9 +10,10 @@ import java.util.HashMap;
 public class Main {
     public static User user;
     public static Message getMessage;
-    static ArrayList<Message> messages = new ArrayList<>();
+    public static ArrayList<Message> messages = new ArrayList<>();
 
     public static void main(String[] args) {
+        Spark.staticFileLocation("/public");
 
         Spark.get(
                 "/",
