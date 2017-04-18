@@ -16,6 +16,7 @@ public class Main {
     public static HashMap<String, User> users = new HashMap<>();
     public static Message getMessage;
     public static ArrayList<Message> messages = new ArrayList<>();
+    public static ArrayList<Message> matches = new ArrayList<>();
 
     public static void main(String[] args) {
         Spark.staticFileLocation("/public");
@@ -70,16 +71,30 @@ public class Main {
 
         Spark.get("/api/messages", (req, res) -> {
             System.out.println(messages.get(0).text);
-            return gson.toJson(messages);
-//            return new JsonSerializer().serialize(messages);
+            return gson.toJson(messages); // gson for the win!
+//            return new JsonSerializer().serialize(messages); <- generates empty stuff.
         });
 
         Spark.post("/api/messages", (req, res) -> {
-            Message message = new JsonParser().parse(req.body(), Message.class);
-
+            Message message = gson.fromJson(req.body(), Message.class);
+//            Message message = new JsonParser().parse(req.body(), Message.class); <- to complex
             messages.add(message);
 
             return "";
+        });
+        Spark.post("/api/messages/:name", (req, res) -> {
+            String searchName = req.queryParams("searchName");
+            System.out.println("Sorting messages by name." + searchName);
+
+            for (int i = 0; i < messages.size(); i++) {
+                Message search = messages.get(i);
+                if (search.userName.equals(searchName)) {
+                    matches.add(search);
+                }
+            }
+            res.redirect("/");
+            return "";
+//
         });
 
     }

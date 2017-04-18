@@ -9,20 +9,32 @@
     <input type="text" placeholder="Write a message here." name="message"/>
     <button type= "Post">Send message</button>
 </form>
+<form action="/api/messages/:name" method="post">
+    <input type="text" placeholder="View only messages by: " name="searchName"/>
+    <button type= "Post">Filter!</button>
+</form>
 <h1>
-    <i style="font-size:48px;color:maroon;">Messages:</i>
-    by {{name}}...
+    <i style="font-size:48px;color:maroon;">Chat Room Messages:</i>
+
 
 
 </h1>
 <h2>
     <ol>
     {{#messages}}
-
         <li>{{userName}}: {{text}}</li>
     {{/messages}}
     </ol>
+
 </h2>
+<h3>
+    <ol>
+    {{#matches}}
+    <li>{{userName}}: {{text}}</li>
+    {{/matches}}
+</ol>
+</h3>
+
 </body>
 </html>
 
