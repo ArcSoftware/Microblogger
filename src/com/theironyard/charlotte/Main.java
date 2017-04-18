@@ -82,7 +82,7 @@ public class Main {
 
             return "";
         });
-        Spark.post("/api/messages/:name", (req, res) -> {
+        Spark.get("/api/messages/:name", (req, res) -> {
             String searchName = req.queryParams("searchName");
             System.out.println("Sorting messages by name." + searchName);
 
@@ -92,10 +92,7 @@ public class Main {
                     matches.add(search);
                 }
             }
-            res.redirect("/");
-            return "";
-//
+            return gson.toJson(matches);
         });
-
     }
 }

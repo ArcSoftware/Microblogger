@@ -1,5 +1,19 @@
 <!DOCTYPE html>
+
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script type = "text/javascript">
+        function searchMessages() {
+            let name = getFilterText();
+            $.getJSON('/api/messages/name', name, function(data) {
+                console.log(data);
+            });
+        }
+
+        function getFilterText() {
+            return $('#FilterName').text();
+        }
+    </script>
     <link rel="stylesheet" href="/page.css">
     <title>Your Messages...</title>
     <meta charset="UTF-8">
@@ -9,10 +23,14 @@
     <input type="text" placeholder="Write a message here." name="message"/>
     <button type= "Post">Send message</button>
 </form>
-<form action="/api/messages/:name" method="post">
-    <input type="text" placeholder="View only messages by: " name="searchName"/>
-    <button type= "Post">Filter!</button>
+
+<input id="FilterName" type="text" placeholder="View only messages by: " name="searchName"/>
+<button onclick="searchMessages()">Filter!</button>
+
+<form action="/api/messages/:name" method="get">
+
 </form>
+
 <h1>
     <i style="font-size:48px;color:maroon;">Chat Room Messages:</i>
 
