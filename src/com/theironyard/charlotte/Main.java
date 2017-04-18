@@ -1,5 +1,8 @@
 package com.theironyard.charlotte;
 
+import com.google.gson.Gson;
+import jodd.json.JsonParser;
+import jodd.json.JsonSerializer;
 import spark.ModelAndView;
 import spark.Session;
 import spark.Spark;
@@ -9,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
+    public static Gson gson = new Gson();
     public static HashMap<String, User> users = new HashMap<>();
     public static Message getMessage;
     public static ArrayList<Message> messages = new ArrayList<>();
@@ -56,11 +60,27 @@ public class Main {
                 "/create-message",
                 ((request, response) -> {
                     String theMessage = request.queryParams("message");
-                    getMessage = new Message(theMessage, null);
+                    Session session = request.session();
+                    String userName = session.attribute("userName");
+                    getMessage = new Message(theMessage, userName);
                     messages.add(getMessage);
                     response.redirect("/");
                     return "";
                 }));
+
+        Spark.get("/api/messages", (req, res) -> {
+            System.out.println(messages.get(0).text);
+            return gson.toJson(messages);
+//            return new JsonSerializer().serialize(messages);
+        });
+
+        Spark.post("/api/messages", (req, res) -> {
+            Message message = new JsonParser().parse(req.body(), Message.class);
+
+            messages.add(message);
+
+            return "";
+        });
 
     }
 }
