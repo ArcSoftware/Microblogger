@@ -84,6 +84,7 @@ public class Main {
         });
         Spark.post("/api/messages/:name", (req, res) -> {
             String searchName = req.queryParams("searchName");
+            matches.clear();
             System.out.println("Sorting messages by name." + searchName);
 
             for (int i = 0; i < messages.size(); i++) {
@@ -92,6 +93,7 @@ public class Main {
                     matches.add(search);
                 }
             }
+            System.out.println(matches.size());
             res.redirect("/");
             return "";
 //
