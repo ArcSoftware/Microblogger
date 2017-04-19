@@ -4,14 +4,10 @@
     <bookmark url="file://$PROJECT_DIR$/resources/templates/messages.html" description="&lt;h2&gt;" line="21" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
     <list default="true" id="a5b78581-f7d3-4e11-9b7f-db18a43d9011" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/templates/messages.html" afterPath="$PROJECT_DIR$/resources/templates/messages.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/theironyard/charlotte/Main.java" afterPath="$PROJECT_DIR$/src/com/theironyard/charlotte/Main.java" />
     </list>
-=======
-    <list default="true" id="a5b78581-f7d3-4e11-9b7f-db18a43d9011" name="Default" comment="" />
->>>>>>> Stashed changes
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
